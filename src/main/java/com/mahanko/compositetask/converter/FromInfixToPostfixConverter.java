@@ -21,7 +21,7 @@ public class FromInfixToPostfixConverter {
                     stack.pop();
                 }
             } else if (isOperator(current)) {
-                if (current.equals('-') && (stack.isEmpty() || stack.peek().equals('(')) && postfixForm.isEmpty()) {
+                if (current.equals('-') && (i == 0 || '(' == infixForm.charAt(i - 1))) {
                     String number = readNumber(infixForm, i + 1);
                     postfixForm.add("0");
                     postfixForm.add(number);
