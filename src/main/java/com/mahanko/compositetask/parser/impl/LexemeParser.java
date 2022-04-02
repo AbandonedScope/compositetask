@@ -8,13 +8,13 @@ import com.mahanko.compositetask.parser.ParserChainLink;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LexemeParser implements ParserChainLink { // FIXME: 02.04.2022 what next?
+public class LexemeParser implements ParserChainLink {
     private static final String PUNCTUATION_REGEX = "\\p{Punct}";
     private static final String WORD_REGEX = "[\\w&&\\D]+";
-    private static final String MATH_EXPRESSION_REGEX = "[\\d[+\\-*/()]]+";
+    private static final String MATH_EXPRESSION_REGEX = "[\\d[+\\-*/()]]{3,}";
     private final ParserChainLink wordParser = new WordParser();
     private final ParserChainLink symbolParser = new SymbolParser();
-    private final ParserChainLink mathOperationParser = new SymbolParser();
+    private final ParserChainLink mathOperationParser = new MathExpressionParser();
 
     @Override
     public Component parse(String dataString) {

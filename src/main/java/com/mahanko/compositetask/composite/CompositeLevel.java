@@ -5,6 +5,7 @@ public enum CompositeLevel {
     PARAGRAPH("\t\n"),
     SENTENCE(""),
     LEXEME("\u0020"),
+    MATH_EXPRESSION(""),
     WORD("");
     private final String value;
     CompositeLevel(String value) {
