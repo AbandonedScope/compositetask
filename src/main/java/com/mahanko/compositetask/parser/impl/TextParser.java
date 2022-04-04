@@ -1,24 +1,24 @@
 package com.mahanko.compositetask.parser.impl;
 
-import com.mahanko.compositetask.composite.Component;
-import com.mahanko.compositetask.composite.Composite;
-import com.mahanko.compositetask.composite.CompositeLevel;
+import com.mahanko.compositetask.composite.TextComponent;
+import com.mahanko.compositetask.composite.TextComposite;
+import com.mahanko.compositetask.composite.TextCompositeLevel;
 import com.mahanko.compositetask.parser.ParserChainLink;
 
 import java.util.List;
 
 public class TextParser implements ParserChainLink {
     private static final String PARAGRAPH_DELIMITER_REGEX = "\\t";
-    private final ParserChainLink paragraphParser = new ParagraphParser();
+    private final ParserChainLink successor = new ParagraphParser();
 
     @Override
-    public Component parse(String dataString) {
-        Composite text = new Composite(CompositeLevel.TEXT);
+    public TextComponent parse(String dataString) {
+        TextComposite text = new TextComposite(TextCompositeLevel.TEXT);
         List<String> paragraphStrings = List.of(dataString.split(PARAGRAPH_DELIMITER_REGEX));
         paragraphStrings.forEach(paragraph ->
         {
             if (!paragraph.isEmpty()) {
-                text.addChild(paragraphParser.parse(paragraph));
+                text.addChild(successor.parse(paragraph));
             }
         });
         return text;

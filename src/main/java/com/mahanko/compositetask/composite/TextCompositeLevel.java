@@ -1,6 +1,6 @@
 package com.mahanko.compositetask.composite;
 
-public enum CompositeLevel {
+public enum TextCompositeLevel {
     TEXT(""),
     PARAGRAPH("\t\n"),
     SENTENCE(""),
@@ -8,7 +8,8 @@ public enum CompositeLevel {
     MATH_EXPRESSION(""),
     WORD("");
     private final String value;
-    CompositeLevel(String value) {
+
+    TextCompositeLevel(String value) {
         this.value = value;
     }
 

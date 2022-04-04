@@ -1,6 +1,6 @@
 package com.mahanko.compositetask.composite;
 
-public enum CompositeSymbolType {
+public enum SymbolType {
     LETTER,
     PUNCTUATION,
     DIGIT

@@ -6,7 +6,10 @@ public class FromInfixToPostfixConverter {
     private static final String OPERATORS = "+-*/";
     private static final String DELIMITERS = "()";
 
-    public List<String> convert(String infixForm) {
+    private FromInfixToPostfixConverter() {
+    }
+
+    public static List<String> convert(String infixForm) {
         List<String> postfixForm = new ArrayList<>();
         Deque<Character> stack = new ArrayDeque<>();
         for (int i = 0; i < infixForm.length(); i++) {
@@ -48,15 +51,15 @@ public class FromInfixToPostfixConverter {
         return postfixForm;
     }
 
-    private boolean isDelimiter(Character symbol) {
+    private static boolean isDelimiter(Character symbol) {
         return DELIMITERS.contains(symbol.toString());
     }
 
-    private boolean isOperator(Character symbol) {
+    private static boolean isOperator(Character symbol) {
         return OPERATORS.contains(symbol.toString());
     }
 
-    private int priority(Character symbol) {
+    private static int priority(Character symbol) {
         int priority = 3;
         if (symbol.equals('(') || symbol.equals(')')) {
             priority = 0;
@@ -69,7 +72,7 @@ public class FromInfixToPostfixConverter {
         return priority;
     }
 
-    private String readNumber(String infixForm, int from) {
+    private static String readNumber(String infixForm, int from) {
         String number = "";
         while (infixForm.length() > from
                 && !isDelimiter(infixForm.charAt(from))

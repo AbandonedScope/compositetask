@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PolishNotationOperator {
-    public List<MathematicalExpression> defineSequence(List<String> polishNotationTokens) {
+    private PolishNotationOperator() {
+    }
+
+    public static List<MathematicalExpression> defineSequence(List<String> polishNotationTokens) {
         List<MathematicalExpression> expressions = new ArrayList<>();
         polishNotationTokens.forEach(token -> {
             switch (token) {

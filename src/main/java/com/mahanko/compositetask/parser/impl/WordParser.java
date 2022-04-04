@@ -4,12 +4,12 @@ import com.mahanko.compositetask.composite.*;
 import com.mahanko.compositetask.parser.ParserChainLink;
 
 public class WordParser implements ParserChainLink {
-    private final ParserChainLink symbolParser = new SymbolParser();
+    private final ParserChainLink successor = new SymbolParser();
 
     @Override
-    public Component parse(String dataString) {
-        Composite word = new Composite(CompositeLevel.WORD);
-        dataString.chars().forEach(symbol -> word.addChild(symbolParser.parse(Character.toString(symbol))));
+    public TextComponent parse(String dataString) {
+        TextComposite word = new TextComposite(TextCompositeLevel.WORD);
+        dataString.chars().forEach(symbol -> word.addChild(successor.parse(Character.toString(symbol))));
         return word;
     }
 }

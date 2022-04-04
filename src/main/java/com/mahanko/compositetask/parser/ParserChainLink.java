@@ -1,7 +1,7 @@
 package com.mahanko.compositetask.parser;
 
-import com.mahanko.compositetask.composite.Component;
+import com.mahanko.compositetask.composite.TextComponent;
 
 public interface ParserChainLink {
-    public Component parse(String dataString);
+    TextComponent parse(String dataString);
 }

@@ -6,15 +6,15 @@ import com.mahanko.compositetask.parser.ParserChainLink;
 public class SymbolParser implements ParserChainLink {
 
     @Override
-    public Component parse(String dataString) {
+    public TextComponent parse(String dataString) {
         char symbol = dataString.charAt(0);
-        CompositeSymbolType symbolType;
+        SymbolType symbolType;
         if (Character.isDigit(symbol)) {
-            symbolType = CompositeSymbolType.DIGIT;
+            symbolType = SymbolType.DIGIT;
         } else if (Character.isLetter(symbol)) {
-            symbolType = CompositeSymbolType.LETTER;
+            symbolType = SymbolType.LETTER;
         } else {
-            symbolType = CompositeSymbolType.PUNCTUATION;
+            symbolType = SymbolType.PUNCTUATION;
         }
 
         return new Symbol(symbol, symbolType);
