@@ -18,13 +18,19 @@ public class TextCountServiceImpl implements TextCountService {
                 for (int j = 0; j < paragraph.size(); j++) {
                     TextComposite sentence = (TextComposite) paragraph.getChild(j);
                     for (int k = 0; k < sentence.size(); k++) {
-                        TextComponent lexemaPart = sentence.getChild(i);
-                        if (lexemaPart.getClass() == TextComposite.class) {
-                            TextComposite lexemPartComposite = (TextComposite) lexemaPart;
-                            if (lexemPartComposite.getLevel() == TextCompositeLevel.WORD) {
-                                String word = lexemPartComposite.toString().toLowerCase(Locale.ROOT);
-                                result.computeIfPresent(word, (key, value) -> ++value);
-                                result.putIfAbsent(word, 1);
+                        TextComponent lexema = sentence.getChild(k);
+                        if (lexema.getClass() == TextComposite.class) {
+                            TextComposite lexemComposite = (TextComposite) lexema;
+                            for (int z = 0; z < lexemComposite.size(); z++) {
+                                TextComponent lexemPart = lexemComposite.getChild(z);
+                                if (lexemPart instanceof TextComposite) {
+                                    TextComposite lexemPartComposite = (TextComposite) lexemPart;
+                                    if (lexemPartComposite.getLevel() == TextCompositeLevel.WORD) {
+                                        String word = lexemPartComposite.toString().toLowerCase(Locale.ROOT);
+                                        result.computeIfPresent(word, (key, value) -> ++value);
+                                        result.putIfAbsent(word, 1);
+                                    }
+                                }
                             }
                         }
                     }
@@ -42,18 +48,23 @@ public class TextCountServiceImpl implements TextCountService {
         result.put(SymbolType.VOWEL, 0);
         if (sentence.getLevel() == TextCompositeLevel.SENTENCE) {
             for (int k = 0; k < sentence.size(); k++) {
-                TextComponent lexemaPart = sentence.getChild(k);
-                if (lexemaPart.getClass() == TextComposite.class) {
-                    TextComposite lexemPartComposite = (TextComposite) lexemaPart;
-                    if (lexemPartComposite.getLevel() == TextCompositeLevel.WORD)
-                        for (int i = 0; i < lexemPartComposite.size(); i++) {
-                            if (lexemPartComposite.getChild(i).getClass() == Symbol.class) {
-                                Symbol symbol = (Symbol) lexemPartComposite.getChild(i);
-                                if (symbol.getType() == SymbolType.CONSONANT) {
-                                    result.computeIfPresent(SymbolType.CONSONANT, (key, value) -> ++value);
-                                } else if (symbol.getType() == SymbolType.VOWEL) {
-                                    result.computeIfPresent(SymbolType.VOWEL, (key, value) -> ++value);
+                TextComponent lexema = sentence.getChild(k);
+                if (lexema.getClass() == TextComposite.class) {
+                    TextComposite lexemComposite = (TextComposite) lexema;
+                    for (int z = 0; z < lexemComposite.size(); z++) {
+                        TextComponent lexemPart = lexemComposite.getChild(z);
+                        if (lexemPart instanceof TextComposite) {
+                            TextComposite lexemPartComposite = (TextComposite) lexemPart;
+                            for (int i = 0; i < lexemPartComposite.size(); i++) {
+                                if (lexemPartComposite.getChild(i).getClass() == Symbol.class) {
+                                    Symbol symbol = (Symbol) lexemPartComposite.getChild(i);
+                                    if (symbol.getType() == SymbolType.CONSONANT) {
+                                        result.computeIfPresent(SymbolType.CONSONANT, (key, value) -> ++value);
+                                    } else if (symbol.getType() == SymbolType.VOWEL) {
+                                        result.computeIfPresent(SymbolType.VOWEL, (key, value) -> ++value);
+                                    }
                                 }
+                            }
                         }
                     }
                 }
