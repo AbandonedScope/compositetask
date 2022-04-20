@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TextComposite implements TextComponent { // TODO: 04.04.2022 hashCode, equals
+public class TextComposite implements TextComponent {
     private final TextCompositeLevel level;
     private final List<TextComponent> textComponents;
 
