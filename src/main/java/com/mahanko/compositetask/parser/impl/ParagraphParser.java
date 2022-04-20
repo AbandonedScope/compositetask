@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ParagraphParser implements ParserChainLink {
-    private static final String SENTENCE_DELIMITER_REGEX = ".+?[!?.…]$";
+    private static final String SENTENCE_DELIMITER_REGEX = ".+?[!?.…]";
     private final ParserChainLink successor = new SentenceParser();
 
     @Override

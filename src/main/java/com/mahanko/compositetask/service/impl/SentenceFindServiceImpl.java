@@ -18,12 +18,19 @@ public class SentenceFindServiceImpl implements SentenceFindService {
                 for (int j = 0; j < paragraph.size(); j++) {
                     TextComposite sentence = (TextComposite) paragraph.getChild(j);
                     for (int k = 0; k < sentence.size(); k++) {
-                        TextComponent lexemaPart = sentence.getChild(k);
-                        if (lexemaPart.getClass() == TextComposite.class) {
-                            TextComposite lexemPartComposite = (TextComposite) lexemaPart;
-                            if (lexemPartComposite.getLevel() == TextCompositeLevel.WORD
-                            && lexemPartComposite.size() > wordLength) {
-                                resultSentence = sentence;
+                        TextComponent lexema = sentence.getChild(k);
+                        if (lexema.getClass() == TextComposite.class) {
+                            TextComposite lexemComposite = (TextComposite) lexema;
+                            for (int z = 0; z < lexemComposite.size(); z++) {
+                                TextComponent lexemPart = lexemComposite.getChild(z);
+                                if (lexemPart instanceof TextComposite) {
+                                    TextComposite lexemPartComposite = (TextComposite) lexemPart;
+                                    if (lexemPartComposite.getLevel() == TextCompositeLevel.WORD
+                                            && lexemPartComposite.size() > wordLength) {
+                                        wordLength = lexemPartComposite.size();
+                                        resultSentence = sentence;
+                                    }
+                                }
                             }
                         }
                     }
